@@ -119,7 +119,7 @@ ggplot(df_medias) +
   aes(x=ano, y=receita_Media, group=1) +
   geom_line(size=1,colour="#A11D21") + geom_point(colour="#A11D21",
                                                   size=2) +
-  labs(x="Ano", y="Preço") +
+  labs(x="Ano", y="Receita média") +
   theme_estat()
 ggsave("series_uni.pdf", width = 158, height = 93, units = "mm")
 
