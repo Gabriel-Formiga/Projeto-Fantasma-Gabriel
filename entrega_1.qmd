@@ -9,32 +9,23 @@ source("rdocs/entrega_1.R")
 ```
 
 
-```{r}
-# Rodar apenas uma vez na vida!
-## Instalando o tinytex(pacote apenas)
-### CRAN version
-install.packages('tinytex')
-
-
-## Baixando o tinytex
-library(tinytex)
-tinytex::install_tinytex()
-```
-
-# Objetivo
-
-Esse template foi criado para o alocado conseguir observar como ficaria sua análise o arquivo principal. É daqui que o gerente de projetos irá copiar a análise e inserir no documento principal que gerará o relatório estatístico.
-
 # Análises
 
-## Análise 3
+## Intodução da análise
 
-## Análise 4
+Esta analise, busca-se entender a variável Receita media, que é quantitativa contínua. A visualização será através de um gráfico de linhas. A amostra traz a receita média de 18 lojas registradas nos anos de 1880 até 1889, afim de compreender se houve um aumento ou diminuição da receita produzida anualmente ao longo de nove anos.
 
 ```{r}
 #| label: fig-
 #| fig-cap: "Gráfico "
-
+ggplot(df_medias) +
+  aes(x=ano, y=receita_Media, group=1) +
+  geom_line(size=1,colour="#A11D21") + geom_point(colour="#A11D21",
+                                                  size=2) +
+  labs(x="Ano", y="Receita média") +
+  scale_x_continuous(breaks = unique(df_medias$ano)) +
+  theme_estat() 
+ggsave("series_uni.pdf", width = 158, height = 93, units = "mm")
 
 
 ```
@@ -42,8 +33,6 @@ Esse template foi criado para o alocado conseguir observar como ficaria sua aná
 
 ::: {#quad- layout-align="center" quad-pos="H"}
 ```{=latex}
-
-
 
 ```
 
@@ -54,19 +43,33 @@ Medidas resumo da
 
 ::: {#tbl-modalidades layout-align="center" tbl-pos="H"}
 ```{=latex}
+\begin{tabular}{c|c|c}
+\toprule
+\textbf{Anos} & \textbf{Média das receitas} & \textbf{Porcentagem de aumento} \\
+\midrule
+1880 & 105.399,0 & - \\
+1881 & 112.110,0 & 6,37\% \\
+1882 & 112.452,4 & 0,31\% \\
+1883 & 116.856,9 & 3,92\% \\
+1884 & 119.989,8 & 2,68\% \\
+1885 & 129.969,0 & 8,32\% \\
+1886 & 130.989,2 & 0,78\% \\
+1887 & 135.444,8 & 3,40\% \\
+1888 & 133.757,6 & −1,25\% \\
+1889 & 155.009,1 & 15,89\% \\
+\midrule
+\textbf{Total} & 1.252.977,8 & 47,07\% \\
+\bottomrule
+\end{tabular}
 
 
 ```
 
 
+
 :::
 
+## Análise 1
 
+Através do gráfico e da tabela é possível entender o aumento das receitas médias ao longo dos anos. Em 1883, houve um acréscimo de 10,83% na receita média em relação a 1880. Esses dados indicam que existe uma tendência de aumento na receita média ao longo desses anos. Em 1886, teve um acréscimo de 24,28% em comparação com 1880, tendo um aumento de 12,09% em relação a 1883. Isso reforça a tendência de crescimento observada ao longo dos anos. Em 1889, teve um aumento de 47,07% em relação a 1880, sendo o maior salto de receita entre 1888 e 1889, onde foi de 15,89%. Observa-se que nessa década teve uma aceleração no crescimento das receitas médias ao longo dos anos, com o maior impulso de crescimento registrado no ano final.
 
-
-$\ref{fig-}$
-
-[@tbl-]
-
-
-[**Quadro** @quad-]
