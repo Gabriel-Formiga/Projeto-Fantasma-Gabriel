@@ -11,7 +11,7 @@ source("rdocs/entrega_1.R")
 
 # Análises
 
-## Intodução da análise
+## Análise 1
 
 Esta analise, busca-se entender a variável Receita media, que é quantitativa contínua. A visualização será através de um gráfico de linhas. A amostra traz a receita média de 18 lojas registradas nos anos de 1880 até 1889, afim de compreender se houve um aumento ou diminuição da receita produzida anualmente ao longo de nove anos.
 
@@ -69,7 +69,7 @@ Medidas resumo da
 
 :::
 
-## Análise 1
-
 Através do gráfico e da tabela é possível entender o aumento das receitas médias ao longo dos anos. Em 1883, houve um acréscimo de 10,83% na receita média em relação a 1880. Esses dados indicam que existe uma tendência de aumento na receita média ao longo desses anos. Em 1886, teve um acréscimo de 24,28% em comparação com 1880, tendo um aumento de 12,09% em relação a 1883. Isso reforça a tendência de crescimento observada ao longo dos anos. Em 1889, teve um aumento de 47,07% em relação a 1880, sendo o maior salto de receita entre 1888 e 1889, onde foi de 15,89%. Observa-se que nessa década teve uma aceleração no crescimento das receitas médias ao longo dos anos, com o maior impulso de crescimento registrado no ano final.
+
+
 
