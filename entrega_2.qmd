@@ -9,68 +9,33 @@ source("rdocs/entrega_2.R")
 ```
 
 
-```{r}
-# Rodar apenas uma vez na vida!
-## Instalando o tinytex(pacote apenas)
-### CRAN version
-install.packages('tinytex')
-
-
-## Baixando o tinytex
-library(tinytex)
-tinytex::install_tinytex()
-```
-
-# Objetivo
-
-Esse template foi criado para o alocado conseguir observar como ficaria sua análise o arquivo principal. É daqui que o gerente de projetos irá copiar a análise e inserir no documento principal que gerará o relatório estatístico.
-
 # Análises
 
-## Análise 3
+## Análise da relação entre altura e peso dos clientes
 
-## Análise 4
+
+Esta análise busca entender e quantificar a relação entre a altura e o peso dos clientes. Serão utilizadas as variáveis altura (em centímetros) e peso (em quilogramas), e ambas são quantitativas contínuas. A amostra engloba 2.000 clientes de diferentes lojas da região. A visualização será através de um gráfico de dispersão, o qual é o mais adequado para essa análise, onde cada indivíduo é retratado por um ponto vermelho. E para melhor compreensão, será calculada uma correlação de Pearson, por se tratar de duas variáveis quantitativas, fornecendo um melhor entendimento da relação entre as variáveis.
+
 
 ```{r}
-#| label: fig-
-#| fig-cap: "Gráfico "
-
-
-
-```
-
-
-::: {#quad- layout-align="center" quad-pos="H"}
-```{=latex}
-
-
-
-```
-
-Medidas resumo da 
-:::
-
-
-
-::: {#tbl-modalidades layout-align="center" tbl-pos="H"}
-```{=latex}
+#| label: fig-altura_peso
+#| fig-cap: "Gráfico de dispersão da altura pelo peso "
+ggplot(df_cliente_final) +
+  aes(x = altura_cm, y = peso_kg) +
+  geom_point(colour = "#A11D21", size = 3,
+             alpha = 0.5) +
+  labs(
+    x = "Altura (Centimetros)",
+    y = "Peso (quilogramas)"
+  ) +
+  theme_estat()
+ggsave("disp_uni.pdf", width = 158, height = 93, units = "mm")
 
 
 ```
 
 
-:::
-
-
-
-
-$\ref{fig-}$
-
-[@tbl-]
-
-
-[**Quadro** @quad-]
-
+Através do gráfico $\ref{fig-altura_peso}$ é possível visualizar uma relação positiva entre as duas variáveis, ou seja, existe uma tendência de que, à medida que a altura do indivíduo aumenta, seu peso também aumentará. O coeficiente de correlação das duas variáveis é de 0,6971007, ressaltando que a relação é positiva por ela ser maior que zero e indica uma relação moderada forte, pois ela tem um valor próximo a 0,70 e pelos pontos no gráfico estarem bem mais agrupados do que dispersos. As alturas observadas vão de 150 cm até 200 cm, já o peso vai de 40 kg até 120 kg. A maior concentração do gráfico está agrupado na faixa de altura entre 170 cm e 180 cm e de de peso entre 60 kg e 80 kg, indicando um maior número de indivíduos nessas faixas. Existe alguns outliers, ou seja, existe alguns indivíduos com menor altura e maior peso, e vice versa, mas mesmo tendo esses valores discrepantes, o resultado da análise permanece o mesmo
 
 
 

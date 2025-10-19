@@ -11,13 +11,16 @@ source("rdocs/entrega_1.R")
 
 # Análises
 
-## Análise 1
+## Análise das receitass médias das loja registradas nos anos de 1880 até 1889
 
-Esta analise, busca-se entender a variável Receita media, que é quantitativa contínua. A visualização será através de um gráfico de linhas. A amostra traz a receita média de 18 lojas registradas nos anos de 1880 até 1889, afim de compreender se houve um aumento ou diminuição da receita produzida anualmente ao longo de nove anos.
+
+Esta análise, busca-se compreender a tendência da receita média anual no período de 10 anos, entre 1880 até 1889, com o objetivo de entender se teve um aumento ou diminuição no faturamento realizado em cada ano. Na análise será utilizado a variável receita média, que é quantitativa contínua e ano de vendas, uma variável quantitativa discreta. Será utilizado a cotação atual do dólar, em R$ 5,31. A amostra traz a média do volume de vendas de 18 lojas registradas nesse período. A visualização e entendimento da evolução da receita média em cada ano será através de um gráfico de linhas, sendo o mais adequado para essa análise e de uma tabela, onde os principais dados utilizados estarão reunidos.
+
+
 
 ```{r}
-#| label: fig-
-#| fig-cap: "Gráfico "
+#| label: fig-receita_media
+#| fig-cap: "Gráfico de linhas da receita média anual de 1880 a 1889"
 ggplot(df_medias) +
   aes(x=ano, y=receita_Media, group=1) +
   geom_line(size=1,colour="#A11D21") + geom_point(colour="#A11D21",
@@ -31,17 +34,10 @@ ggsave("series_uni.pdf", width = 158, height = 93, units = "mm")
 ```
 
 
-::: {#quad- layout-align="center" quad-pos="H"}
-```{=latex}
-
-```
-
-Medidas resumo da 
-:::
 
 
 
-::: {#tbl-modalidades layout-align="center" tbl-pos="H"}
+::: {#tbl-receita_media layout-align="center" tbl-pos="H"}
 ```{=latex}
 \begin{tabular}{c|c|c}
 \toprule
@@ -69,7 +65,8 @@ Medidas resumo da
 
 :::
 
-Através do gráfico e da tabela é possível entender o aumento das receitas médias ao longo dos anos. Em 1883, houve um acréscimo de 10,83% na receita média em relação a 1880. Esses dados indicam que existe uma tendência de aumento na receita média ao longo desses anos. Em 1886, teve um acréscimo de 24,28% em comparação com 1880, tendo um aumento de 12,09% em relação a 1883. Isso reforça a tendência de crescimento observada ao longo dos anos. Em 1889, teve um aumento de 47,07% em relação a 1880, sendo o maior salto de receita entre 1888 e 1889, onde foi de 15,89%. Observa-se que nessa década teve uma aceleração no crescimento das receitas médias ao longo dos anos, com o maior impulso de crescimento registrado no ano final.
+Através do gráfico $\ref{fig-receita_media}$ e da tabela [@tbl-receita_media] é possível entender o aumento das receitas médias ao longo dos anos. Em 1883, houve um acréscimo de 10,83% na receita média em relação a 1880. Esses dados indicam que existe uma tendência de aumento na receita média ao longo desses anos. Em 1886, teve um acréscimo de 24,28% em comparação com 1880, tendo um aumento de 12,09% em relação a 1883. Isso reforça a tendência de crescimento observada ao longo dos anos. Em 1887 teve um queda de 1,25%, sendo o úncio ano onde teve uma diminuição na receita, mostrando que esse ano foi atípico. Em contra partida em 1889, teve um aumento de 47,07% em relação a 1880, sendo o maior salto de receita entre 1888 e 1889, onde foi de 15,89%. Observa-se que nessa década teve uma aceleração no crescimento das receitas médias ao longo dos anos, com o maior impulso de crescimento registrado no ano final.
+
 
 
 
