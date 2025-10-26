@@ -13,7 +13,7 @@
 \RequirePackage[a4paper, top=3cm, bottom=2cm, left=3cm, right=2cm]{geometry} 
 
 % Set language to PT-BR
-%\RequirePackage[brazil]{babel}
+% \RequirePackage[portuguese]{babel}
 
 
 

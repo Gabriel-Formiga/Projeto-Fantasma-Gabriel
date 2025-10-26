@@ -8,70 +8,45 @@ output-file: "Entrega 3"
 source("rdocs/entrega_3.R")
 ```
 
-```{r}
-# Rodar apenas uma vez na vida!
-## Instalando o tinytex(pacote apenas)
-### CRAN version
-install.packages('tinytex')
-
-
-## Baixando o tinytex
-library(tinytex)
-tinytex::install_tinytex()
-```
 
 
 
-
-# Objetivo
-
-Esse template foi criado para o alocado conseguir observar como ficaria sua análise o arquivo principal. É daqui que o gerente de projetos irá copiar a análise e inserir no documento principal que gerará o relatório estatístico.
 
 # Análises
 
-## Análise 5
+## Análise 3
 
-## Análise 6
+Esta análise, busca-se compreender e identificar as caracteristicas etarais do clientes de diferentes loja em Âmabr seco, com o objetivo de descobrir se existe uma variação significativa no perfil das idades dos clientes entre as lojas da região. Ná analise será utilizado as variaveis idade, que é quantitativa discreta e loja, que é qualitativa nominal. A visualização será através de um boxplot bivariado, o qual é mais adequado para essa analise, onde cada boxplot será representado por uma loja diferente da região, a linha central nele representara a mediana das iades e o losangolo representa a media, e por um quadro, onde terá os dados das principais medidas calculadas na análise
+
 
 ```{r}
-#| label: fig-
-#| fig-cap: "Gráfico "
-
+#| label: fig-idade_loja
+#| fig-cap: "Boxplot bivariado da idade do cliente por Nome da loja em Ambar Seco"
+ggplot(idades_em_ambar) +
+  aes(x = reorder(NameStore, Age, FUN = median), y = Age) +
+  geom_boxplot(fill = c("#A11D21"), width = 0.5) +
+  stat_summary(
+    fun = "mean", geom = "point", shape = 23, size = 3, fill = "white"
+  ) +
+  labs(x = "Nome da loja", y = "Idade") +
+  theme_estat()
+ggsave("box_bi.pdf", width = 158, height = 93, units = "mm")
 
 
 ```
 
 
-::: {#quad- layout-align="center" quad-pos="H"}
+::: {#quad-idade_loja layout-align="center" quad-pos="H"}
 ```{=latex}
 
 
 
 ```
 
-Medidas resumo da 
-:::
+Através do gráfico $\ref{fig-idade_loja}$ e pelo quadro [**Quadro** @quad-] é possivel visualizar uma notavel diferença no perfil etario da loja Vendinha Rápida com as outras três lojas da região. A loja Ferraria Seca possui a clientela mais jovem da região, tendo uma média de 33,67 anos e mediana de 30,5. As lojas Saloon e Banco Careca possuem uma clientela mais jovem, com as medianas de 32,5 e 34 anos, tendo um perfil etario bem proximo com a de Ferraria Seca. A loja que tem um publico mais velho, e mais distinto das demais, é a Vendinha Rápida, que possui uma media de 40,34 e uma mediana de 41 anos. 
+O Banco careca e a Vendinha Rápida possuem uma menor dispersão de idade, por ter baixos desvios padrões, sendo 5,57 e 6,03, ou seja, as clientela dessas lojas possui uma idade bastante semelhante. Mas a Vendinha Rápida é a que possui a menor dispersão entre todas e o Banco Careca possui a maior homogenidade de clientes, tendo um intervalo interquartil de 9 anos. Já as lojas Ferraria Seca e Saloon possuem uma maior dispersão entre as lojas, por ter altos desvios padrões, sendo 13,31 e 12,69. Com isso é possivel perceber que nessas duas lojas possuem uma clientela mais jovem, mas tendo uma grande mistura de idades, o que é possivel visualizar pelos outliers, que são valores discrepantes em relação as demais idades, A Ferraria Seca e Saloon possuem clientes com idades mais elevada, mesmo tendo clientes mais jovens, fazendo que a media desas lojas aumentem em relação a mediana. As duas lojas também possuem uma assimetria mais a direita, sendo positiva, ressaltando que existe uma grande diferença nas idades da clientela das lojas. Em contra partida, O Banco careca possui a distribuição mais simetrica em relação as outras, tendo a menor diferença de idade dos clientes, e ela não apresenta valores discrepantes. A Vendinha Rápida possui uma assimetria mais a esquerda, sendo negativa, mostrando que a maioria dos clientes são mais velho, tendo poucos clientes jovens, mas também não possui valores discrepantes, confirmando que não existe um grande diferença de idade dos clientes.
 
 
-
-::: {#tbl-modalidades layout-align="center" tbl-pos="H"}
-```{=latex}
-
-
-```
-
-
-:::
-
-
-
-
-$\ref{fig-}$
-
-[@tbl-]
-
-
-[**Quadro** @quad-]
 
 
 
