@@ -166,16 +166,3 @@ medidas_lojas <- data.frame(
 )
 
 # calculo da moda
-
-frequencia_loja_1 <- table(idades_loja_1$Age)
-
-frequencia_loja_2 <- table(idades_loja_2$Age)
-
-frequencia_loja_3 <- table(idades_loja_3$Age)
-
-frequencia_loja_4 <- table(idades_loja_4$Age)
-
-View(frequencia_loja_1)
-View(frequencia_loja_2)
-View(frequencia_loja_3)
-View(frequencia_loja_4)
