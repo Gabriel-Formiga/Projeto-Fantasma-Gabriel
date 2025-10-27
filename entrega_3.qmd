@@ -38,12 +38,64 @@ ggsave("box_bi.pdf", width = 158, height = 93, units = "mm")
 
 ::: {#quad-idade_loja layout-align="center" quad-pos="H"}
 ```{=latex}
+print_quadro_resumo_grande <- function(data, var_name,
+                                title = "Medidas resumo da variável",
+                                label = "quad:quadro_resumo1") {
 
+  var_name <- substitute(var_name)
+  group_var <- sym("NameStore")
+  
+  resumo <- data %>%
+    group_by(!!group_var) %>%
+    summarize(
+      Média = round(mean(!!sym(var_name), na.rm = TRUE), 2),
+      Desvio Padrão = round(sd(!!sym(var_name), na.rm = TRUE), 2),
+      Variância = round(var(!!sym(var_name), na.rm = TRUE), 2),
+      Mínimo = round(min(!!sym(var_name), na.rm = TRUE), 2),
+      1º Quartil = round(quantile(!!sym(var_name), probs = .25, na.rm = TRUE), 2),
+      Mediana = round(quantile(!!sym(var_name), probs = .5, na.rm = TRUE), 2),
+      3º Quartil = round(quantile(!!sym(var_name), probs = .75, na.rm = TRUE), 2),
+      Máximo = round(max(!!sym(var_name), na.rm = TRUE), 2)
+    ) %>%
+    pivot_longer(-!!group_var, names_to = "Estatística", values_to = "Valor") %>%
+    pivot_wider(names_from = !!group_var, values_from = Valor) %>%
+    mutate(Estatística = stringi::stri_trans_general(Estatística, "Latin-ASCII"))
+  
+  linhas <- apply(resumo, 1, function(row) {
+    paste0(
+      row[1], " & ",
+      paste(row[-1], collapse = " & "),
+      " \\\\"
+    )
+  }) %>% paste0(collapse = "\n")
+  
+latex <- paste0(
+  "\\begin{quadro}[H]\n",
+  "\\caption{", title, "}\n",
+  "\\centering\n",
+  "\\begin{adjustbox}{max width=\\textwidth}\n",
+  "\\begin{tabular}{|l|", paste(rep("r", ncol(resumo) - 1), collapse = " "), "|r|}\n",
+  "\\toprule\n",
+  "\\textbf{Estatística} & ",
+  paste0(paste0("\\textbf{", names(resumo)[-1], "}"), collapse = " & "),
+  "\\\\\n",
+  "\\midrule\n",
+  linhas, "\n",
+  "\\bottomrule\n",
+  "\\end{tabular}\n",
+  "\\label{", label, "}\n",
+  "\\end{adjustbox}\n",
+  "\\end{quadro}\n"
+)
+
+  
+  knitr::asis_output(latex)
+}
 
 
 ```
 
-Através do gráfico $\ref{fig-idade_loja}$ e pelo quadro [**Quadro** @quad-] é possível visualizar uma notável diferença no perfil etário da loja Vendinha Rápida com as outras três lojas da região. A loja Ferraria Seca possui a clientela mais jovem da região, tendo uma média de 33,67 anos e mediana de 30,5. As lojas Saloon e Banco Careca possuem uma clientela mais jovem, com as medianas de 32,5 e 34 anos, tendo um perfil etário bem próximo ao de Ferraria Seca. A loja que tem um público mais velho, e mais distinto das demais, é a Vendinha Rápida, que possui uma média de 40,34 e uma mediana de 41 anos.
+Através do gráfico $\ref{fig-idade_loja}$ e pelo quadro [**Quadro** @idade_loja-] é possível visualizar uma notável diferença no perfil etário da loja Vendinha Rápida com as outras três lojas da região. A loja Ferraria Seca possui a clientela mais jovem da região, tendo uma média de 33,67 anos e mediana de 30,5. As lojas Saloon e Banco Careca possuem uma clientela mais jovem, com as medianas de 32,5 e 34 anos, tendo um perfil etário bem próximo ao de Ferraria Seca. A loja que tem um público mais velho, e mais distinto das demais, é a Vendinha Rápida, que possui uma média de 40,34 e uma mediana de 41 anos.
 O Banco Careca e a Vendinha Rápida possuem uma menor dispersão de idade, por ter baixos desvios padrões, sendo 5,57 e 6,03, ou seja, as clientelas dessas lojas possuem uma idade bastante semelhante. Mas a Vendinha Rápida é a que possui a menor dispersão entre todas e o Banco Careca possui a maior homogeneidade de clientes, tendo um intervalo interquartil de 9 anos. Já as lojas Ferraria Seca e Saloon possuem uma maior dispersão entre as lojas, por ter altos desvios padrões, sendo 13,31 e 12,69. Com isso, é possível perceber que nessas duas lojas possuem uma clientela mais jovem, mas tendo uma grande mistura de idades, o que é possível visualizar pelos outliers, que são valores discrepantes em relação às demais idades. A Ferraria Seca e Saloon possuem clientes com idades mais elevadas, mesmo tendo clientes mais jovens, fazendo que a média dessas lojas aumente em relação à mediana. As duas lojas também possuem uma assimetria mais à direita, sendo positiva, ressaltando que existe uma grande diferença nas idades da clientela das lojas. Em contrapartida, O Banco Careca possui a distribuição mais simétrica em relação às outras, tendo a menor diferença de idade dos clientes, e ela não apresenta valores discrepantes. A Vendinha Rápida possui uma assimetria mais à esquerda, sendo negativa, mostrando que a maioria dos clientes é mais velha, tendo poucos clientes jovens, mas também não possui valores discrepantes, confirmando que não existe uma grande diferença de idade dos clientes.
 
 
