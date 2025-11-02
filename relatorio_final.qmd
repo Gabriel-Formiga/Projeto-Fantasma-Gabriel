@@ -16,4 +16,15 @@ source("rdocs/packages.R")
 
 # Análises
 
+
+## analise 4
+
+```{r}
+#| label: fig-idade_loja
+#| fig-cap: "Boxplot bivariado da idade do cliente por Nome da loja em Ambar Seco"
+
+
+
+```
+
 # Conclusões
