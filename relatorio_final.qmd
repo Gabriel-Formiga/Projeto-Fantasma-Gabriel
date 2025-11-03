@@ -7,24 +7,217 @@ output-file: titulo do projeto
 
 ```{r}
 #| include: false
-source("rdocs/packages.R")
+source("rdocs/relatorio_final_1.R")
 ```
 
 # Introdução
+
+O seguinte projeto tem como objetivo fornecer uma melhor compreensão sobre o mercado e a viabilidade de investimento em uma região específica do faroeste. Foram realizadas diversas análises estatísticas, contendo análises descritivas para resumir os dados da amostra e análises de correlação para identificar o grau e a direção da relação entre as variáveis.
+
+O estudo foi feito através de um banco de dados, fornecido pela empresa Old Town Road.Ltda, que contém dados do período de 1880 a 1889, detalhando o comércio local, as informações demográficas e as informações dos clientes da região. Esse conjunto de dados possui variáveis de extrema importância para as análises realizadas, sendo as principais: Nome da cidade, Ano, Peso, Altura, Idade do Cliente, Nome da Loja e Nome do Produto. Essas informações permitem realizar uma análise mais aprofundada sobre a dinâmica de venda, o crescimento da receita ao longo dos anos, as características demográficas e dos clientes.
+
+Para a manipulação, processamento, visualização e execução de todos os dados analisados, será utilizado o Software RStudio, em sua versão 2025.09.2+418.
 
 # Referencial Teórico
 
 # Análises
 
+## Análise das receitass médias das loja registradas nos anos de 1880 até 1889
 
-## analise 4
+
+Esta análise, busca-se compreender a tendência da receita média anual no período de 10 anos, entre 1880 até 1889, com o objetivo de entender se teve um aumento ou diminuição no faturamento realizado em cada ano. Na análise será utilizado a variável receita média, que é quantitativa contínua e ano de vendas, uma variável quantitativa discreta. Será utilizado a cotação atual do dólar, em R$ 5,31. A amostra traz a média do volume de vendas de 18 lojas registradas nesse período. A visualização e entendimento da evolução da receita média em cada ano será através de um gráfico de linhas, sendo o mais adequado para essa análise e de uma tabela, onde os principais dados utilizados estarão reunidos.
+
+
 
 ```{r}
-#| label: fig-idade_loja
-#| fig-cap: "Boxplot bivariado da idade do cliente por Nome da loja em Ambar Seco"
-
+#| label: fig-receita_media
+#| fig-cap: "Gráfico de linhas da receita média anual de 1880 a 1889"
+ggplot(df_medias) +
+  aes(x=ano, y=receita_Media, group=1) +
+  geom_line(size=1,colour="#A11D21") + geom_point(colour="#A11D21",
+                                                  size=2) +
+  labs(x="Ano", y="Receita média") +
+  scale_x_continuous(breaks = unique(df_medias$ano)) +
+  theme_estat() 
+ggsave("series_uni.pdf", width = 158, height = 93, units = "mm")
 
 
 ```
 
+
+
+
+
+::: {#tbl-receita_media layout-align="center" tbl-pos="H"}
+```{=latex}
+\begin{tabular}{c|c|c}
+\toprule
+\textbf{Anos} & \textbf{Média das receitas} & \textbf{Porcentagem de aumento} \\
+\midrule
+1880 & 105.399,0 & - \\
+1881 & 112.110,0 & 6,37\% \\
+1882 & 112.452,4 & 0,31\% \\
+1883 & 116.856,9 & 3,92\% \\
+1884 & 119.989,8 & 2,68\% \\
+1885 & 129.969,0 & 8,32\% \\
+1886 & 130.989,2 & 0,78\% \\
+1887 & 135.444,8 & 3,40\% \\
+1888 & 133.757,6 & −1,25\% \\
+1889 & 155.009,1 & 15,89\% \\
+\midrule
+\textbf{Total} & 1.252.977,8 & 47,07\% \\
+\bottomrule
+\end{tabular}
+
+
+```
+
+
+
+:::
+
+Através do gráfico $\ref{fig-receita_media}$ e da tabela [@tbl-receita_media] é possível entender o aumento das receitas médias ao longo dos anos. Em 1883, houve um acréscimo de 10,83% na receita média em relação a 1880. Esses dados indicam que existe uma tendência de aumento na receita média ao longo desses anos. Em 1886, teve um acréscimo de 24,28% em comparação com 1880, tendo um aumento de 12,09% em relação a 1883. Isso reforça a tendência de crescimento observada ao longo dos anos. Em 1887 teve um queda de 1,25%, sendo o úncio ano onde teve uma diminuição na receita, mostrando que esse ano foi atípico. Em contra partida em 1889, teve um aumento de 47,07% em relação a 1880, sendo o maior salto de receita entre 1888 e 1889, onde foi de 15,89%. Observa-se que nessa década teve uma aceleração no crescimento das receitas médias ao longo dos anos, com o maior impulso de crescimento registrado no ano final.
+
+## Análise da relação entre altura e peso dos clientes
+
+
+Esta análise busca entender e quantificar a relação entre a altura e o peso dos clientes. Serão utilizadas as variáveis altura (em centímetros) e peso (em quilogramas), e ambas são quantitativas contínuas. O estudo engloba os dados de 2.000 clientes de diferentes lojas da região. A visualização será através de um gráfico de dispersão, o qual é o mais adequado para essa análise, onde cada indivíduo é retratado por um ponto vermelho. E para melhor compreensão, será calculada uma correlação de Pearson, por se tratar de duas variáveis quantitativas, fornecendo um melhor entendimento da relação entre as variáveis.
+
+
+```{r}
+#| label: fig-altura_peso
+#| fig-cap: "Gráfico de dispersão da altura (Centimetros) pelo peso (quilogramas) "
+ggplot(df_cliente_final) +
+  aes(x = altura_cm, y = peso_kg) +
+  geom_point(colour = "#A11D21", size = 3,
+             alpha = 0.5) +
+  labs(
+    x = "Altura (Centimetros)",
+    y = "Peso (quilogramas)"
+  ) +
+  theme_estat()
+ggsave("disp_uni.pdf", width = 158, height = 93, units = "mm")
+
+
+```
+
+
+Através do gráfico $\ref{fig-altura_peso}$ é possível visualizar uma relação positiva entre as duas variáveis, ou seja, existe uma tendência de que, à medida que a altura do indivíduo aumenta, seu peso também aumentará. O coeficiente de correlação das duas variáveis é de 0,6971007, ressaltando que a relação é positiva por ela ser maior que zero e indica uma relação moderada forte, pois ela tem um valor próximo a 0,70 e pelos pontos no gráfico estarem bem mais agrupados do que dispersos. As alturas observadas vão de 150 cm até 200 cm, já o peso vai de 40 kg até 120 kg. A maior concentração do gráfico está agrupado na faixa de altura entre 170 cm e 180 cm e de de peso entre 60 kg e 80 kg, indicando um maior número de indivíduos nessas faixas. Existe alguns outliers, ou seja, existe alguns indivíduos com menor altura e maior peso, e vice versa, mas mesmo tendo esses valores discrepantes, o resultado da análise permanece o mesmo
+
+## Análise da distribuição da idade dos clientes de Âmbar Seco a depender das lojas
+
+Esta análise, busca-se compreender e identificar as características etárias dos clientes de diferentes lojas em Âmbar Seco, com o objetivo de descobrir se existe uma variação significativa no perfil das idades dos clientes entre as lojas da região. Na análise serão utilizadas as variáveis idade, que é quantitativa discreta, e loja, que é qualitativa nominal. Será utilizado os dados de 4 lojas diferente da região de Âmbar Seco e de 2000 clientes da região. A visualização será através de um boxplot bivariado, o qual é mais adequado para essa análise, onde cada boxplot será representado por uma loja diferente da região. A linha central nele representará a mediana das idades e o losango representará a média, e por um quadro, onde terá os dados das principais medidas calculadas na análise.
+
+
+```{r}
+#| label: fig-idade_loja
+#| fig-cap: "Boxplot bivariado da idade do cliente por Nome da loja em Ambar Seco"
+ggplot(idades_ambar) +
+  aes(x = reorder(NameStore, Age, FUN = median), y = Age) +
+  geom_boxplot(fill = c("#A11D21"), width = 0.5) +
+  stat_summary(
+    fun = "mean", geom = "point", shape = 23, size = 3, fill = "white"
+  ) +
+  labs(x = "Nome da loja", y = "Idade") +
+  theme_estat()
+ggsave("box_bi.pdf", width = 158, height = 93, units = "mm")
+
+
+```
+
+
+::: {#quad-idade_loja layout-align="center" quad-pos="H"}
+```{=latex}
+\begin{tabular} { | l | c  c  c  c | c | }
+\hline
+\textbf{Estatística} & \textbf{Ferraria Seca} & \textbf{Saloon} & \textbf{Banco Careca} & \textbf{Vendinha Rápida} \\ 
+\hline
+Média & 33.6 & 34.2 & 34.9 & 40.34 \\
+Desvio Padrão & 13.3 & 12.7 & 5.5 & 6.0\\
+Variância & 177.1 & 161.2 & 31.0 & 36.3 \\
+Mínimo & 16.0 & 15.0 & 25.0 & 30.0 \\
+1º Quartil & 24.0 & 26.0 & 31.0 & 35.0\\
+Mediana & 30.5 & 32.5 & 34.0 & 41.0 \\
+3º Quartil & 39.0 & 38.0 & 40.0 & 46.0 \\
+Máximo & 80.0 & 77.0 & 44.0 & 49.0 \\
+\hline
+\end{tabular}
+
+```
+
+Medidas resumo das idades dos clientes por lojas de Âmbar seco
+:::
+
+
+Através do gráfico $\ref{fig-idade_loja}$ e pelo quadro [**Quadro** @idade_loja-] é possível visualizar uma notável diferença no perfil etário da loja Vendinha Rápida com as outras três lojas da região. A loja Ferraria Seca possui a clientela mais jovem da região, tendo uma média de 33,67 anos e mediana de 30,5. As lojas Saloon e Banco Careca possuem uma clientela mais jovem, com as medianas de 32,5 e 34 anos, tendo um perfil etário bem próximo ao de Ferraria Seca. A loja que tem um público mais velho, e mais distinto das demais, é a Vendinha Rápida, que possui uma média de 40,34 e uma mediana de 41 anos.
+
+O Banco Careca e a Vendinha Rápida possuem uma menor dispersão de idade, por ter baixos desvios padrões, sendo 5,57 e 6,03, ou seja, as clientelas dessas lojas possuem uma idade bastante semelhante. Mas a Vendinha Rápida é a que possui a menor dispersão entre todas e o Banco Careca possui a maior homogeneidade de clientes, tendo um intervalo interquartil de 9 anos. Já as lojas Ferraria Seca e Saloon possuem uma maior dispersão entre as lojas, por ter altos desvios padrões, sendo 13,31 e 12,69. Com isso, é possível perceber que nessas duas lojas possuem uma clientela mais jovem, mas tendo uma grande mistura de idades, o que é possível visualizar pelos outliers, que são valores discrepantes em relação às demais idades. 
+
+A Ferraria Seca e Saloon possuem clientes com idades mais elevadas, mesmo tendo clientes mais jovens, fazendo que a média dessas lojas aumente em relação à mediana. As duas lojas também possuem uma assimetria mais à direita, sendo positiva, ressaltando que existe uma grande diferença nas idades da clientela das lojas. Em contrapartida, O Banco Careca possui a distribuição mais simétrica em relação às outras, tendo a menor diferença de idade dos clientes, e ela não apresenta valores discrepantes. A Vendinha Rápida possui uma assimetria mais à esquerda, sendo negativa, mostrando que a maioria dos clientes é mais velha, tendo poucos clientes jovens, mas também não possui valores discrepantes, confirmando que não existe uma grande diferença de idade dos clientes.
+
+## Análise dos 3 produtos mais vendidos nas 3 lojas com maior receita em 1889
+
+Esta analise, busca-se compreender quais foram as 3 lojas que tiveram a maior receita em 1889, com isso identificar o 3 produtos mais vendidos em cada uma dessas lojas. Na analise será utilizado as variaveis quantidade vendida, que é quantitativa discreta, receita, que é quantitativa continua, produto e loja, onde ambas são qualitativa nominal. Na analise será utilizado os dados das vendas de 18 lojas diferentes da região. A visualização será atráves de um grãfico de colunas bivariado com frequencias, por ser o mais adepto para essa analise, onde cada barra representará um produto diferente e seu conjunto representará uma loja diferente, e por uma tabela, onde terá a loja, o produto e quantidade vendida no total. 
+
+
+
+```{r}
+#| label: fig-loja_produto
+#| fig-cap: "Gráfico de colunas da loja pelo frequência de vendas"
+ggplot(resumo_quantidade_classificado) +
+aes(
+x = fct_reorder(Tipo_Loja, Total_Vendido, .desc = T), y = Total_Vendido,
+fill = Nome_loja, label = legendas
+) +
+geom_col(position = position_dodge2(preserve = "single", padding =
+0)) +
+geom_text(
+position = position_dodge(width = .9),
+vjust = -0.5, hjust = 0.5,
+size = 3
+) +
+labs(x = "Loja", y = "Frequência", fill = "Item ID") +
+theme_estat()
+ggsave("colunas-bi-freq.pdf", width = 158, height = 93, units = "mm")
+
+```
+
+::: {#tbl-dados_produtos layout-align="center" tbl-pos="H"}
+```{=latex}
+\begin{tabular}{c|c|c}
+\toprule
+\textbf{Loja} & \textbf{Produto} & \textbf{Total vendido} \\
+\midrule
+Loja Ouro Fino & Botas de Couro & 52 \\
+Loja Ouro Fino & Whisky & 49 \\
+Loja Ouro Fino & Chapéu de Couro & 45 \\
+Loja TendTudo & Espingarda & 53 \\
+Loja TendTudo & Whisky & 49 \\
+Loja TendTudo & Colt.45 & 43 \\
+Ferraria Apache & Chapéu de Couro & 52 \\
+Ferraria Apache & Espingarda & 42 \\
+Ferraria Apache & Machado & 41 \\
+\midrule
+\bottomrule
+\end{tabular}
+
+
+```
+
+:::
+
+
+Através do gráfico $\ref{fig-loja_produto}$ e da tabela [@tbl-dados_produtos] é possível visualizar que a loja Ouro Fino foi a que teve a maior receita no ano de 1889, tendo uma receita de 197.312,5 reais. A segunda que mais vendeu no ano foi a Loja TendTudo, onde teve uma receita um pouco menor comparada à loja Ouro Fino, sendo a receita anual de 196.340,3 reais. A Ferraria Apache foi a terceira loja com a maior receita anual, sendo de 181.689,1 reais. A quantidade vendida por cada loja entre as três teve o mesmo "ranking", sendo a Loja Ouro Fino a que mais teve quantidade de vendas com um total de 146 unidades, a Loja TendTudo a segunda com um total de 145 unidades e a Ferraria Apache em terceiro com um total de 135 unidades vendidas no ano. Com isso, é possível perceber que a diferença entre a Loja Ouro Fino e a Loja TendTudo teve um desempenho de vendas bastante parecido, tendo um pouco de diferença na receita anual e no total vendido.
+
+Os três produtos mais vendidos na Loja Ouro Fino foram: As botas de Couro, que teve 52 unidades vendidas, o Uísque, que teve 49 unidades vendidas e o Chapéu de Couro que obteve 45 unidades vendidas. Já na Loja TendTudo o produto mais vendido foi a espingarda, com um total de 53 unidades vendidas, seguido pelo Uísque e pelo Colt.45 onde o primeiro foi vendido 49 vezes e o outro 43 vezes. Na Ferraria Apache o produto mais vendido foi o Chapéu de Couro com um total de 52 vendas, o segundo foi a Espingarda que teve 42 unidades vendidas e o terceiro foi o Machado com um total de 41 peças vendidas. Com isso, é possível perceber que a loja Ouro Fino tem seu principal produto do ano, mas ela não depende apenas desse produto: suas vendas foram bem distribuídas entre os três principais produtos. A Loja TendTudo tem seu produto mais vendido no ano, e comparando com o terceiro produto mais vendido, teve uma queda no volume de vendas significativa. A Ferraria Apache tem seu produto mais vendido, mas os outros dois produtos tiveram uma porcentagem bem parecida de vendas anuais.
+
+
+
 # Conclusões
+
+Os resultados sugerem que o mercado local apresenta uma forte tendência de crescimento, tendo em vista a relação com o aumento das receitas nos últimos anos, além do mercado ser moderadamente previsível, sugerindo que o aumento continuará com uma tendência em crescer cada vez mais. De mesmo modo, é possível entender que no mercado haverá produtos mais procurados, mas as outras demandas também são de extrema importância para as vendas locais.
+
+A partir da análise, foi possível perceber que a clientela possui uma clara diferenciação no perfil etário, tendo um perfil mais parecido em algumas lojas da região, como: Banco Careca e a Vendinha Rápida e outras com uma idade mais dispersa. As características dos clientes são bastante parecidas, tendo apenas alguns valores que são atípicos.
+
+
+

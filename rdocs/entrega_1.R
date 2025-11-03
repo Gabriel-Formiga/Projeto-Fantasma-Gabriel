@@ -29,23 +29,23 @@ library(readxl)
 library(dplyr)
 library(ggplot2)
 
-relatorio_vendas <- read_excel("relatorio_old_town_road.xlsx", 
+relatorio_vendas <- read_excel("~/GitHub/Projeto-Fantasma-Gabriel/relatorio_old_town_road.xlsx", 
                                sheet = "relatorio_vendas")
 
-infos_produtos <- read_excel("relatorio_old_town_road.xlsx", 
+infos_produtos <- read_excel("~/GitHub/Projeto-Fantasma-Gabriel/relatorio_old_town_road.xlsx", 
                              sheet = "infos_produtos")
 
-infos_vendas <- read_excel("relatorio_old_town_road.xlsx", 
+infos_vendas <- read_excel("~/GitHub/Projeto-Fantasma-Gabriel/relatorio_old_town_road.xlsx", 
                            sheet = "infos_vendas")
 
-df<-relatorio_vendas
+df1<-relatorio_vendas
 
-df$Date <- as.Date(df$Date, format = "%Y-%m-%d")
+df1$Date <- as.Date(df1$Date, format = "%Y-%m-%d")
 
-df <- df %>%
+df1 <- df1 %>%
   mutate(ano = format(Date, "%Y"))
 
-df$ano = as.integer(df$ano)
+df1$ano = as.integer(df1$ano)
 
 vendas<-full_join(infos_produtos,infos_vendas,by="ItemID")
 vendas<-full_join(vendas,df,by="SaleID")

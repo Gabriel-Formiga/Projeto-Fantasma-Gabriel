@@ -27,17 +27,16 @@ library(readxl)
 library(dplyr)
 library(ggplot2)
 
-infos_clientes <- read_excel("relatorio_old_town_road.xlsx", 
+infos_clientes <- read_excel("GitHub/Projeto-Fantasma-Gabriel/relatorio_old_town_road.xlsx", 
                              sheet = "infos_clientes")
 
-infos_cidades <- read_excel("relatorio_old_town_road.xlsx", 
+infos_cidades <- read_excel("GitHub/Projeto-Fantasma-Gabriel/relatorio_old_town_road.xlsx", 
                             sheet = "infos_cidades")
 
-
-infos_lojas <- read_excel("relatorio_old_town_road.xlsx", 
+infos_lojas <- read_excel("~/GitHub/Projeto-Fantasma-Gabriel/relatorio_old_town_road.xlsx", 
                           sheet = "infos_lojas")
 
-relatorio_vendas <- read_excel("relatorio_old_town_road.xlsx", 
+relatorio_vendas <- read_excel("~/GitHub/Projeto-Fantasma-Gabriel/relatorio_old_town_road.xlsx", 
                                sheet = "relatorio_vendas")
 
 lojas<-full_join(infos_cidades,infos_lojas,by="CityID")

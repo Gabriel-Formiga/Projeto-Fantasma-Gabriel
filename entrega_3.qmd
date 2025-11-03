@@ -16,7 +16,7 @@ source("rdocs/entrega_3.R")
 
 ## Análise da distribuição da idade dos clientes de Âmbar Seco a depender das lojas
 
-Esta análise, busca-se compreender e identificar as características etárias dos clientes de diferentes lojas em Âmbar Seco, com o objetivo de descobrir se existe uma variação significativa no perfil das idades dos clientes entre as lojas da região. Na análise serão utilizadas as variáveis idade, que é quantitativa discreta, e loja, que é qualitativa nominal. A visualização será através de um boxplot bivariado, o qual é mais adequado para essa análise, onde cada boxplot será representado por uma loja diferente da região. A linha central nele representará a mediana das idades e o losango representará a média, e por um quadro, onde terá os dados das principais medidas calculadas na análise.
+Esta análise, busca-se compreender e identificar as características etárias dos clientes de diferentes lojas em Âmbar Seco, com o objetivo de descobrir se existe uma variação significativa no perfil das idades dos clientes entre as lojas da região. Na análise serão utilizadas as variáveis idade, que é quantitativa discreta, e loja, que é qualitativa nominal. Será utilizado os dados de 4 lojas diferente da região de Âmbar Seco e de 2000 clientes da região. A visualização será através de um boxplot bivariado, o qual é mais adequado para essa análise, onde cada boxplot será representado por uma loja diferente da região. A linha central nele representará a mediana das idades e o losango representará a média, e por um quadro, onde terá os dados das principais medidas calculadas na análise.
 
 
 ```{r}

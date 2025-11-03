@@ -27,8 +27,9 @@ library(readxl)
 library(dplyr)
 library(ggplot2)
 
-infos_clientes <- read_excel("~/relatorio_old_town_road (1).xlsx", 
-                             sheet = "infos_clientes")
+
+infos_clientes <- read_excel("GitHub/Projeto-Fantasma-Gabriel/relatorio_old_town_road.xlsx", 
+                              sheet = "infos_clientes")
 
 df <- infos_clientes
 
