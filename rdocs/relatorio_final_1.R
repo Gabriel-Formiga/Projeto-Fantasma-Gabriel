@@ -136,7 +136,6 @@ df_cliente_final <- df_cliente %>%
 
 cor.test(df_cliente_final$altura_cm,df_cliente_final$peso_kg)
 
-
 # analise 3
 
 infos_clientes <- read_excel("~/GitHub/Projeto-Fantasma-Gabriel/relatorio_old_town_road.xlsx", 
@@ -434,7 +433,7 @@ top_3_produtos_7 = top_3_produtos_7 %>%
   select(-UnityPrice, -SaleID, -Date, -ClientID, -CityID, -receita)
 
 loja_17 = subset(top_3_lojas, top_3_lojas$StoreID == 17)
-top_3_produtos_17 = subset(loja_17, loja_17$ItemID == 3 | loja_17$ItemID == 5 | loja_17$ItemID == 6 )
+top_3_produtos_17 = subset(loja_17, loja_17$ItemID == 3 | loja_17$ItemID == 5 | loja_17$ItemID == 6 | loja_17$ItemID == 10 )
 top_3_produtos_17 = top_3_produtos_17 %>%
   select(-UnityPrice, -SaleID, -Date, -ClientID, -CityID, -receita)
 

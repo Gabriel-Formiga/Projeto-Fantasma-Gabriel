@@ -1,8 +1,8 @@
 ---
-title: "Modelo Projeto - Quarto"
+title: "Relatório Estatístico - Old Town Road.Ltda"
 
 # Nome do documento PDF gerado
-output-file: titulo do projeto
+output-file: Entrega final
 ---
 
 ```{r}
@@ -12,17 +12,195 @@ source("rdocs/relatorio_final_1.R")
 
 # Introdução
 
-O seguinte projeto tem como objetivo fornecer uma melhor compreensão sobre o mercado e a viabilidade de investimento em uma região específica do faroeste. Foram realizadas diversas análises estatísticas, contendo análises descritivas para resumir os dados da amostra e análises de correlação para identificar o grau e a direção da relação entre as variáveis.
+O seguinte projeto tem como objetivo fornecer uma melhor compreensão sobre o mercado e a viabilidade de investimento em uma região específica do faroeste. Foram executadas análises estatísticas, contendo análises descritivas para resumir os dados da amostra e análises de correlação para identificar o grau e a direção da relação entre as variáveis.
 
-O estudo foi feito através de um banco de dados, fornecido pela empresa Old Town Road.Ltda, que contém dados do período de 1880 a 1889, detalhando o comércio local, as informações demográficas e as informações dos clientes da região. Esse conjunto de dados possui variáveis de extrema importância para as análises realizadas, sendo as principais: Nome da cidade, Ano, Peso, Altura, Idade do Cliente, Nome da Loja e Nome do Produto. Essas informações permitem realizar uma análise mais aprofundada sobre a dinâmica de venda, o crescimento da receita ao longo dos anos, as características demográficas e dos clientes.
+O estudo foi feito através de um banco de dados, fornecido pela empresa Old Town Road.Ltda, contendo os dados do período de 1880 a 1889, fornecendo informações demográficas, do comércio local, dos produtos, dos funcionarios e dos clientes da região. Esse conjunto de dados possui variáveis de extrema importância para as análises realizadas, sendo as principais: Nome da cidade, Ano, Peso, Altura, Idade do Cliente, Nome da Loja e Nome do Produto. Essas informações permitem realizar uma análise mais aprofundada sobre a funcionamento de venda local, o crescimento da receita ao longo dos anos, as características demográficas e dos clientes.
 
-Para a manipulação, processamento, visualização e execução de todos os dados analisados, será utilizado o Software RStudio, em sua versão 2025.09.2+418.
+O projeto realizará as seguintes analises: Receita média anual das lojas registradas no ano de 1880 a 1889, Relação entre a altura e o peso dos clientes da região, Distribuição da idades dos clientes de Âmbar Seco a depender da loja e o top 3 produtos mais vendidos nas 3 top lojas com maior receita em 1889.
+
+Para a manipulação, processamento, visualização e execução de todos os dados analisados, será utilizado o Software RStudio, em sua versão 2025.09.2+418, que incorpora a linguagem de programação R e para a criação e geração do relatório, será utilizado o Software Quarto.
 
 # Referencial Teórico
 
+## Tipos de Variáveis
+
+### Qualitativas
+
+As variáveis qualitativas são as variáveis não numéricas, que representam categorias ou características da população. Estas subdividem-se em:
+
+-   **Nominais**: quando não existe uma ordem entre as categorias da variável (exemplos: sexo, cor dos olhos, fumante ou não, etc)
+-   **Ordinais**: quando existe uma ordem entre as categorias da variável (exemplos: nível de escolaridade, mês, estágio de doença, etc)
+
+### Quantitativas
+
+As variáveis quantitativas são as variáveis numéricas, que representam características numéricas da população, ou seja, quantidades. Estas subdividem-se em:
+
+-   **Discretas**: quando os possíveis valores são enumeráveis (exemplos: número de filhos, número de cigarros fumados, etc)
+-   **Contínuas**: quando os possíveis valores são resultado de medições (exemplos: massa, altura, tempo, etc)
+
+## Frequência Relativa
+
+A frequência relativa é utilizada para a comparação entre classes de uma variável categórica com $c$ categorias, ou para comparar uma mesma categoria em diferentes estudos.
+
+A frequência relativa da categoria $j$ é dada por:
+
+$$
+f_j=\frac{n_j}{n}
+$$
+
+Com:
+
+-   $j = 1, \, ..., \, c$
+
+-   $n_j =$ número de observações da categoria $j$
+
+-   $n =$ número total de observações
+
+Geralmente, a frequência relativa é utilizada em porcentagem, dada por:
+
+$$100 \times f_j$$
+
+## Média
+
+A média é a soma das observações dividida pelo número total delas, dada pela fórmula:
+
+$$\bar{X}=\frac{\sum\limits_{i=1}^{n}X_i}{n}$$
+
+Com:
+
+-   $i = 1, \, 2, \, ..., \, n$
+
+-   $n =$ número total de observações
+
+## Mediana
+
+Sejam as $n$ observações de um conjunto de dados $X=X_{(1)},X_{(2)},\ldots, X_{(n)}$ de determinada variável ordenadas de forma crescente. A mediana do conjunto de dados $X$ é o valor que deixa metade das observações abaixo dela e metade dos dados acima.
+
+Com isso, pode-se calcular a mediana da seguinte forma:
+
+$$
+med(X) =
+    \begin{cases}
+         X_{\frac{n+1}{2}}, \textrm{para n ímpar} \\
+         \frac{X_{\frac{n}{2}}+X_{\frac{n}{2} + 1}}{2}, \textrm{para n par} \\
+    \end{cases}
+$$
+## Quartis
+
+Os quartis são separatrizes que dividem o conjunto de dados em quatro partes iguais. O primeiro quartil (ou inferior) delimita os 25% menores valores, o segundo representa a mediana, e o terceiro delimita os 25% maiores valores. Inicialmente deve-se calcular a posição do quartil:
+
+-   Posição do primeiro quartil $P_1$: $$P_1=\frac{n+1}{4}$$
+
+-   Posição da mediana (segundo quartil) $P_2$: $$P_2 = \frac{n+1}{2}$$
+
+-   Posição do terceiro quartil $P_3$: $$P_3=\frac{3 \times (n+1)}{4}$$
+
+Com $n$ sendo o tamanho da amostra. Dessa forma, $X_{\left( P_i \right)}$ é o valor do $i$-ésimo quartil, onde $X_{\left( j \right)}$ representa a $j$-ésima observação dos dados ordenados.
+
+Se o cálculo da posição resultar em uma fração, deve-se fazer a média entre o valor que está na posição do inteiro anterior e do seguinte ao da posição.
+
+## Variância
+
+A variância é uma medida que avalia o quanto os dados estão dispersos em relação à média, em uma escala ao quadrado da escala dos dados.
+
+### Variância Amostral
+
+Para uma amostra, a variância é dada por:
+
+$$S^2=\frac{\sum\limits_{i=1}^{n}\left(X_i - \bar{X}\right)^2}{n-1}$$
+
+Com:
+
+-   $X_i =$ i-ésima observação da amostra
+
+-   $\bar{X} =$ média amostral
+
+-   $n =$ tamanho da amostra
+
+## Desvio Padrão
+
+O desvio padrão é a raiz quadrada da variância. Ele avalia o quanto os dados estão dispersos em relação à média.
+
+### Desvio Padrão Amostral
+
+Para uma amostra, o desvio padrão é dado por:
+
+$$S=\sqrt{\frac{\sum\limits_{i=1}^{n}\left(X_i - \bar{X}\right)^2}{n-1}}$$
+
+Com:
+
+-   $X_i =$ i-ésima observação da amostra
+
+-   $\bar{X} =$ média amostral
+
+-   $n =$ tamanho da amostra
+
+## Coeficiente de Correlação de Pearson
+
+O coeficiente de correlação de Pearson é uma medida que verifica o grau de relação linear entre duas variáveis quantitativas. Este coeficiente varia entre os valores -1 e 1. O valor zero significa que não há relação linear entre as variáveis. Quando o valor do coeficiente $r$ é negativo, diz-se existir uma relação de grandeza inversamente proporcional entre as variáveis. Analogamente, quando $r$ é positivo, diz-se que as duas variáveis são diretamente proporcionais.
+
+O coeficiente de correlação de Pearson é normalmente representado pela letra $r$ e a sua fórmula de cálculo é:
+
+$$
+r_{Pearson} = \frac{\displaystyle \sum_{i=1}^{n} \left [ \left(x_i-\bar{x}\right) \left(y_i-\bar{y}\right) \right]}{\sqrt{\displaystyle \sum_{i=1}^{n} x_i^2 - n\bar{x}^2}  \times \sqrt{\displaystyle \sum_{i=1}^{n} y_i^2 - n\bar{y}^2}}
+$$
+
+Onde:
+
+-   $x_i =$ i-ésimo valor da variável $X$
+-   $y_i =$ i-ésimo valor da variável $Y$
+-   $\bar{x} =$ média dos valores da variável $X$
+-   $\bar{y} =$ média dos valores da variável $Y$
+
+Vale ressaltar que o coeficiente de Pearson é paramétrico e, portanto, sensível quanto à normalidade (simetria) dos dados.
+
+## Teste de Correlação de Pearson
+
+O coeficiente de correlação linear de Pearson indica a força e a direção do relacionamento linear entre duas variáveis quantitativas. É um índice adimensional com valores situados entre -1 e 1, no qual o valor -1 representa total correlação linear negativa entre as variáveis (quando o valor de uma variável cresce, o valor da outra diminui) e o valor 1 representa total correlação linear positiva entre elas (ambas crescem simultaneamente). Esse coeficiente é obtido por meio da fórmula:
+
+$$r_{Pearson} = \frac{\displaystyle \sum_{i=1}^{n} \left [ \left(x_i-\bar{x}\right) \left(y_i-\bar{y}\right) \right]}{\sqrt{\displaystyle \sum_{i=1}^{n} x_i^2 - n\bar{x}^2} \sqrt{\displaystyle \sum_{i=1}^{n} y_i^2 - n\bar{y}^2}}$$
+
+\noindent em que
+
+-   $x_i=$ i-ésimo valor da variável $X$
+
+-   $y_i=$ i-ésimo valor da variável $Y$
+
+-   $\bar{x}=$ média dos valores da variável $X$
+
+-   $\bar{y}=$ média dos valores da variável $Y$
+
+-   $r_{Pearson}=$ coeficiente de correlação linear de Pearson amostral
+
+Para o teste de correlação de Pearson, tem-se as seguintes hipóteses:
+
+\hipoteses{Não há correlação linear entre as variáveis $X$ e $Y$ $\left(\rho_{Pearson} = 0 \right)$ }{Há correlação linear entre as variáveis $X$ e $Y$ $\left(\rho_{Pearson} \neq 0 \right)$ }
+
+em que $\rho_{Pearson}$ é o parâmetro a ser testado: coeficiente de correlação linear populacional.
+
+Se X e Y tem distribuição normal, tem-se que a estatística do teste é dada por:
+
+$$t_{Pearson} = \frac{r_{Pearson} \sqrt{n-2}}{\sqrt{1-r_{Pearson}^2}} \sim t_{n-2} $$
+
+Assim, sob $H_{0}$, $t_{Pearson}$ segue uma distribuição \textit{t}-Student com ($n - 2$) graus de liberdade.
+
+## Boxplot
+
+O boxplot é uma representação gráfica na qual se pode perceber de forma mais clara como os dados estão distribuídos. A figura abaixo ilustra um exemplo de boxplot.
+
+![Exemplo de boxplot](images/box_uni.png){fig-align="center"}
+
+A porção inferior do retângulo diz respeito ao primeiro quartil, enquanto a superior indica o terceiro quartil. Já o traço no interior do retângulo representa a mediana do conjunto de dados, ou seja, o valor em que o conjunto de dados é dividido em dois subconjuntos de mesmo tamanho. A média é representada pelo losango branco e os pontos são *outliers*. Os *outliers* são valores discrepantes da série de dados, ou seja, valores que não demonstram a realidade de um conjunto de dados.
+
+## Gráfico de Dispersão
+
+O gráfico de dispersão é uma representação gráfica utilizada para ilustrar o comportamento conjunto de duas variáveis quantitativas. A figura abaixo ilustra um exemplo de gráfico de dispersão, onde cada ponto representa uma observação do banco de dados.
+
+![Exemplo de Gráfico de Dispersão](images/disp_uni.png){fig-align="center"}
+
 # Análises
 
-## Análise das receitass médias das loja registradas nos anos de 1880 até 1889
+## Análise das receitas médias das lojas registradas nos anos de 1880 até 1889
 
 
 Esta análise, busca-se compreender a tendência da receita média anual no período de 10 anos, entre 1880 até 1889, com o objetivo de entender se teve um aumento ou diminuição no faturamento realizado em cada ano. Na análise será utilizado a variável receita média, que é quantitativa contínua e ano de vendas, uma variável quantitativa discreta. Será utilizado a cotação atual do dólar, em R$ 5,31. A amostra traz a média do volume de vendas de 18 lojas registradas nesse período. A visualização e entendimento da evolução da receita média em cada ano será através de um gráfico de linhas, sendo o mais adequado para essa análise e de uma tabela, onde os principais dados utilizados estarão reunidos.
@@ -50,7 +228,7 @@ ggsave("series_uni.pdf", width = 158, height = 93, units = "mm")
 
 ::: {#tbl-receita_media layout-align="center" tbl-pos="H"}
 ```{=latex}
-\begin{tabular}{c|c|c}
+\begin{tabular}{|c|c|c|}
 \toprule
 \textbf{Anos} & \textbf{Média das receitas} & \textbf{Porcentagem de aumento} \\
 \midrule
@@ -73,7 +251,7 @@ ggsave("series_uni.pdf", width = 158, height = 93, units = "mm")
 ```
 
 
-
+Medias das receitas anuais (1880-1889)
 :::
 
 Através do gráfico $\ref{fig-receita_media}$ e da tabela [@tbl-receita_media] é possível entender o aumento das receitas médias ao longo dos anos. Em 1883, houve um acréscimo de 10,83% na receita média em relação a 1880. Esses dados indicam que existe uma tendência de aumento na receita média ao longo desses anos. Em 1886, teve um acréscimo de 24,28% em comparação com 1880, tendo um aumento de 12,09% em relação a 1883. Isso reforça a tendência de crescimento observada ao longo dos anos. Em 1887 teve um queda de 1,25%, sendo o úncio ano onde teve uma diminuição na receita, mostrando que esse ano foi atípico. Em contra partida em 1889, teve um aumento de 47,07% em relação a 1880, sendo o maior salto de receita entre 1888 e 1889, onde foi de 15,89%. Observa-se que nessa década teve uma aceleração no crescimento das receitas médias ao longo dos anos, com o maior impulso de crescimento registrado no ano final.
@@ -86,7 +264,7 @@ Esta análise busca entender e quantificar a relação entre a altura e o peso d
 
 ```{r}
 #| label: fig-altura_peso
-#| fig-cap: "Gráfico de dispersão da altura (Centimetros) pelo peso (quilogramas) "
+#| fig-cap: "Gráfico de dispersão da altura (centimetros) pelo peso (quilogramas) "
 ggplot(df_cliente_final) +
   aes(x = altura_cm, y = peso_kg) +
   geom_point(colour = "#A11D21", size = 3,
@@ -102,7 +280,57 @@ ggsave("disp_uni.pdf", width = 158, height = 93, units = "mm")
 ```
 
 
-Através do gráfico $\ref{fig-altura_peso}$ é possível visualizar uma relação positiva entre as duas variáveis, ou seja, existe uma tendência de que, à medida que a altura do indivíduo aumenta, seu peso também aumentará. O coeficiente de correlação das duas variáveis é de 0,6971007, ressaltando que a relação é positiva por ela ser maior que zero e indica uma relação moderada forte, pois ela tem um valor próximo a 0,70 e pelos pontos no gráfico estarem bem mais agrupados do que dispersos. As alturas observadas vão de 150 cm até 200 cm, já o peso vai de 40 kg até 120 kg. A maior concentração do gráfico está agrupado na faixa de altura entre 170 cm e 180 cm e de de peso entre 60 kg e 80 kg, indicando um maior número de indivíduos nessas faixas. Existe alguns outliers, ou seja, existe alguns indivíduos com menor altura e maior peso, e vice versa, mas mesmo tendo esses valores discrepantes, o resultado da análise permanece o mesmo
+::: {#quad-altura layout-align="center" quad-pos="H"}
+```{=latex}
+\begin{tabular} { | l | c | }
+\hline
+\textbf{Estatística} & \textbf{Valor} \\ 
+\hline
+Média & 171.48 \\
+Desvio Padrão & 9.86 \\
+Variância & 97.37 \\
+Mínimo & 150.00 \\
+1º Quartil & 164.80 \\
+Mediana & 171.75 \\
+3º Quartil & 178.00 \\
+Máximo & 200.00 \\
+\hline
+\end{tabular}
+
+```
+
+Medidas de resumo da altura dos clientes
+:::
+
+
+::: {#quad-peso layout-align="center" quad-pos="H"}
+```{=latex}
+\begin{tabular} { | l | c | }
+\hline
+\textbf{Estatística} & \textbf{Valor} \\ 
+\hline
+Média & 75.18 \\
+Desvio Padrão & 11.91 \\
+Variância & 141.99 \\
+Mínimo & 44.99\\
+1º Quartil & 66.89 \\
+Mediana & 75.29 \\
+3º Quartil & 83.19 \\
+Máximo & 119.29 \\
+\hline
+\end{tabular}
+
+```
+
+Medidas de resumo do peso dos clientes
+:::
+
+
+Através do gráfico $\ref{fig-altura_peso}$ é possível visualizar uma relação positiva entre as duas variáveis, ou seja, existe uma tendência de que, à medida que a altura do indivíduo aumenta, seu peso também aumentará. O coeficiente de correlação das duas variáveis é de 0,6971007, ressaltando que a relação é positiva por ela ser maior que zero e indica uma relação moderada forte, pois ela tem um valor próximo a 0,70 e pelos pontos no gráfico estarem bem mais agrupados do que dispersos. As alturas observadas vão de 150 cm até 200 cm, já o peso vai de 40 kg até 120 kg. A maior concentração do gráfico está agrupado na faixa de altura entre 170 cm e 180 cm e de de peso entre 60 kg e 80 kg, indicando um maior número de indivíduos nessas faixas. Existe alguns outliers, ou seja, existe alguns indivíduos com menor altura e maior peso, e vice versa, mas mesmo tendo esses valores discrepantes, o resultado da análise permanece o mesmo.
+
+Analisando o [**Quadro** @quad-altura] que representa a altura dos clientes, é possivel perceber que a maioria dos clientes possui uma altura proxima a 171 cm, tendo uma media de 171.48 cm e uma mediana de 171.75, além disso a distribuição da altura é quase simétrica por ela ter uma media e uma mediana quase iguais. Ademais 25% dos cliente possuem uma altura menor ou igual a 164.80 cm e 75% deles possuem uma altura menor ou igual a 178.00 cm, com isso é possivel entender que grande parte dos clientes dessa região possuem uma altura parecida. Já analisando o [**Quadro** @quad-peso] que representa o peso dos clientes, é possivel perceber que a maioria dos clientes possuem um peso proximo a 75 kg, pois a media é 75.18 kg e a mediana é 75.29 kg, isso mostra que a distribuição do peso também é quase simetrica. Além disso 25% dos clientes possuem um peso menor ou igual a 66.89 kg e 75% possuem um peso menor ou igual a 83.19, isso ressalta que a maioria dos clientes possuem um peso entre 60 kg e 80 kg.
+
+ 
 
 ## Análise da distribuição da idade dos clientes de Âmbar Seco a depender das lojas
 
@@ -132,26 +360,28 @@ ggsave("box_bi.pdf", width = 158, height = 93, units = "mm")
 \hline
 \textbf{Estatística} & \textbf{Ferraria Seca} & \textbf{Saloon} & \textbf{Banco Careca} & \textbf{Vendinha Rápida} \\ 
 \hline
-Média & 33.6 & 34.2 & 34.9 & 40.34 \\
-Desvio Padrão & 13.3 & 12.7 & 5.5 & 6.0\\
-Variância & 177.1 & 161.2 & 31.0 & 36.3 \\
-Mínimo & 16.0 & 15.0 & 25.0 & 30.0 \\
-1º Quartil & 24.0 & 26.0 & 31.0 & 35.0\\
-Mediana & 30.5 & 32.5 & 34.0 & 41.0 \\
-3º Quartil & 39.0 & 38.0 & 40.0 & 46.0 \\
-Máximo & 80.0 & 77.0 & 44.0 & 49.0 \\
+Média & 33.67 & 34.20 & 34.92 & 40.34 \\
+Desvio Padrão & 13.31 & 12.70 & 5.57 & 6.03\\
+Variância & 177.17 & 161.22 & 31.06 & 36.38 \\
+Mínimo & 16.00 & 15.00 & 25.00 & 30.00 \\
+1º Quartil & 24.00 & 26.00 & 31.00 & 35.00\\
+Mediana & 30.50 & 32.50 & 34.00 & 41.00 \\
+3º Quartil & 39.00 & 38.00 & 40.00 & 46.00 \\
+Máximo & 80.00 & 77.00 & 44.00 & 49.00 \\
 \hline
 \end{tabular}
 
 ```
 
-Medidas resumo das idades dos clientes por lojas de Âmbar seco
+Medidas de resumo das idades dos clientes por lojas de Âmbar seco
 :::
 
 
-Através do gráfico $\ref{fig-idade_loja}$ e pelo quadro [**Quadro** @idade_loja-] é possível visualizar uma notável diferença no perfil etário da loja Vendinha Rápida com as outras três lojas da região. A loja Ferraria Seca possui a clientela mais jovem da região, tendo uma média de 33,67 anos e mediana de 30,5. As lojas Saloon e Banco Careca possuem uma clientela mais jovem, com as medianas de 32,5 e 34 anos, tendo um perfil etário bem próximo ao de Ferraria Seca. A loja que tem um público mais velho, e mais distinto das demais, é a Vendinha Rápida, que possui uma média de 40,34 e uma mediana de 41 anos.
+Através do gráfico $\ref{fig-idade_loja}$ e pelo quadro [**Quadro** @quad-idade_loja] é possível visualizar uma notável diferença no perfil etário da loja Vendinha Rápida com as outras três lojas da região. A loja Ferraria Seca possui a clientela mais jovem da região, tendo uma média de 33,67 anos e mediana de 30,5. As lojas Saloon e Banco Careca possuem uma clientela mais jovem, com as medianas de 32,5 e 34 anos, tendo um perfil etário bem próximo ao de Ferraria Seca. A loja que tem um público mais velho, e mais distinto das demais, é a Vendinha Rápida, que possui uma média de 40,34 e uma mediana de 41 anos.
 
 O Banco Careca e a Vendinha Rápida possuem uma menor dispersão de idade, por ter baixos desvios padrões, sendo 5,57 e 6,03, ou seja, as clientelas dessas lojas possuem uma idade bastante semelhante. Mas a Vendinha Rápida é a que possui a menor dispersão entre todas e o Banco Careca possui a maior homogeneidade de clientes, tendo um intervalo interquartil de 9 anos. Já as lojas Ferraria Seca e Saloon possuem uma maior dispersão entre as lojas, por ter altos desvios padrões, sendo 13,31 e 12,69. Com isso, é possível perceber que nessas duas lojas possuem uma clientela mais jovem, mas tendo uma grande mistura de idades, o que é possível visualizar pelos outliers, que são valores discrepantes em relação às demais idades. 
+
+A loja Ferraria Seca e Saloon apresentam os primeiros quartis mais baixos, sendo 24 e 26, demonstrando que nessas lojas 25% dos clientes possuem uma idade abaixo ou igual a 24 anos, na Ferraria Seca e 26 anos na Saloon. Já o Banco Careca e a Vendinha Rápida possuem um primeiro quartil mais elevado, sendo 31 e 35, mostrando que 25% da clientela dessas lojas possui uma idade igual ou menor que 31 anos, no Banco Careca e 35 anos na Vendinha Rápida. Saloon, Ferraria Seca e Banco Careca possuem o terceiro quartil mais baixo, tendo seus valores bastante parecidos, sendo 38, 39 e 40, revelando que 75% da clientela dessas lojas possui uma idade abaixo ou igual a esses valores, entretanto a Vendinha Rápida possui um terceiro quartil de 46 anos, sendo o ponto mais alto entre essas lojas. Isso ressalta que as lojas Ferraria Seca e Saloon possuem uma clientela mais jovem, mas bem variada. O Banco Careca possui clientes com uma idade um pouco maior em relação às outras duas lojas, mas possui a maior homogeneidade na idade dos clientes, e a Ferraria Seca é a loja que possui a clientela com a idade mais elevada entre todas.
 
 A Ferraria Seca e Saloon possuem clientes com idades mais elevadas, mesmo tendo clientes mais jovens, fazendo que a média dessas lojas aumente em relação à mediana. As duas lojas também possuem uma assimetria mais à direita, sendo positiva, ressaltando que existe uma grande diferença nas idades da clientela das lojas. Em contrapartida, O Banco Careca possui a distribuição mais simétrica em relação às outras, tendo a menor diferença de idade dos clientes, e ela não apresenta valores discrepantes. A Vendinha Rápida possui uma assimetria mais à esquerda, sendo negativa, mostrando que a maioria dos clientes é mais velha, tendo poucos clientes jovens, mas também não possui valores discrepantes, confirmando que não existe uma grande diferença de idade dos clientes.
 
@@ -171,53 +401,37 @@ fill = Nome_loja, label = legendas
 ) +
 geom_col(position = position_dodge2(preserve = "single", padding =
 0)) +
-geom_text(
-position = position_dodge(width = .9),
-vjust = -0.5, hjust = 0.5,
-size = 3
-) +
-labs(x = "Loja", y = "Frequência", fill = "Item ID") +
-theme_estat()
+geom_text( position = position_dodge2(width = 0.9, preserve = "single", padding = 0), vjust = -0.5, hjust = 0.5, size = 2.0 ) +
+labs(x = "Loja", y = "Frequência", fill = "Produto") +
+theme_estat() +
+  scale_fill_manual(values = c("#A11D21", "#003366", "#006606", "#663333", "#008091", "#CC9900"))
 ggsave("colunas-bi-freq.pdf", width = 158, height = 93, units = "mm")
 
 ```
 
-::: {#tbl-dados_produtos layout-align="center" tbl-pos="H"}
-```{=latex}
-\begin{tabular}{c|c|c}
-\toprule
-\textbf{Loja} & \textbf{Produto} & \textbf{Total vendido} \\
-\midrule
-Loja Ouro Fino & Botas de Couro & 52 \\
-Loja Ouro Fino & Whisky & 49 \\
-Loja Ouro Fino & Chapéu de Couro & 45 \\
-Loja TendTudo & Espingarda & 53 \\
-Loja TendTudo & Whisky & 49 \\
-Loja TendTudo & Colt.45 & 43 \\
-Ferraria Apache & Chapéu de Couro & 52 \\
-Ferraria Apache & Espingarda & 42 \\
-Ferraria Apache & Machado & 41 \\
-\midrule
-\bottomrule
-\end{tabular}
 
 
-```
+Através do gráfico $\ref{fig-loja_produto}$ é possível visualizar que a loja Ouro Fino foi a que teve a maior receita no ano de 1889, tendo uma receita de 197.312,5 reais. A segunda que mais vendeu no ano foi a Loja TendTudo, onde teve uma receita um pouco menor comparada à loja Ouro Fino, sendo a receita anual de 196.340,3 reais. A Ferraria Apache foi a terceira loja com a maior receita anual, sendo de 181.689,1 reais. A quantidade vendida por cada loja entre as três teve o mesmo "ranking", sendo a Loja Ouro Fino a que mais teve quantidade de vendas com um total de 146 unidades, a Loja TendTudo a segunda com um total de 145 unidades e a Ferraria Apache em terceiro com um total de 135 unidades vendidas no ano. Com isso, é possível perceber que a diferença entre a Loja Ouro Fino e a Loja TendTudo teve um desempenho de vendas bastante parecido, tendo um pouco de diferença na receita anual e no total vendido.
 
-:::
-
-
-Através do gráfico $\ref{fig-loja_produto}$ e da tabela [@tbl-dados_produtos] é possível visualizar que a loja Ouro Fino foi a que teve a maior receita no ano de 1889, tendo uma receita de 197.312,5 reais. A segunda que mais vendeu no ano foi a Loja TendTudo, onde teve uma receita um pouco menor comparada à loja Ouro Fino, sendo a receita anual de 196.340,3 reais. A Ferraria Apache foi a terceira loja com a maior receita anual, sendo de 181.689,1 reais. A quantidade vendida por cada loja entre as três teve o mesmo "ranking", sendo a Loja Ouro Fino a que mais teve quantidade de vendas com um total de 146 unidades, a Loja TendTudo a segunda com um total de 145 unidades e a Ferraria Apache em terceiro com um total de 135 unidades vendidas no ano. Com isso, é possível perceber que a diferença entre a Loja Ouro Fino e a Loja TendTudo teve um desempenho de vendas bastante parecido, tendo um pouco de diferença na receita anual e no total vendido.
-
-Os três produtos mais vendidos na Loja Ouro Fino foram: As botas de Couro, que teve 52 unidades vendidas, o Uísque, que teve 49 unidades vendidas e o Chapéu de Couro que obteve 45 unidades vendidas. Já na Loja TendTudo o produto mais vendido foi a espingarda, com um total de 53 unidades vendidas, seguido pelo Uísque e pelo Colt.45 onde o primeiro foi vendido 49 vezes e o outro 43 vezes. Na Ferraria Apache o produto mais vendido foi o Chapéu de Couro com um total de 52 vendas, o segundo foi a Espingarda que teve 42 unidades vendidas e o terceiro foi o Machado com um total de 41 peças vendidas. Com isso, é possível perceber que a loja Ouro Fino tem seu principal produto do ano, mas ela não depende apenas desse produto: suas vendas foram bem distribuídas entre os três principais produtos. A Loja TendTudo tem seu produto mais vendido no ano, e comparando com o terceiro produto mais vendido, teve uma queda no volume de vendas significativa. A Ferraria Apache tem seu produto mais vendido, mas os outros dois produtos tiveram uma porcentagem bem parecida de vendas anuais.
-
+Os três produtos mais vendidos na Loja Ouro Fino foram: As botas de Couro, que teve 52 unidades vendidas, o Uísque, que teve 49 unidades vendidas e o Chapéu de Couro que obteve 45 unidades vendidas. Já na Loja TendTudo o produto mais vendido foi a espingarda, com um total de 53 unidades vendidas, seguido pelo Uísque e pelo Colt.45 onde o primeiro foi vendido 49 vezes e o outro 43 vezes. Na Ferraria Apache o produto mais vendido foi o Chapéu de Couro com um total de 52 vendas, o segundo foi a Espingarda que teve 42 unidades vendidas e o terceiro teve um empate em número de vendas, o machado e o whisky tiveram um total de 41 peças vendidas. Com isso, é possível perceber que a loja Ouro Fino tem seu principal produto do ano, mas ela não depende apenas desse produto: suas vendas foram bem distribuídas entre os três principais produtos. A Loja TendTudo tem seu produto mais vendido no ano, e comparando com o terceiro produto mais vendido, teve uma queda no volume de vendas significativa. A Ferraria Apache tem seu produto mais vendido, mas também teve outros produtos que tiveram um grande número de vendas, sendo bem parecido a quantidade vendida do segundo para o terceiro lugar, e tendo até mesmo um empate nas vendas, demonstrando que existe um produto principal, mas a loja também possui outros 3 produtos com um alto desempenho de vendas, tendo um ritmo de vendas quase idêntico.
 
 
 # Conclusões
 
-Os resultados sugerem que o mercado local apresenta uma forte tendência de crescimento, tendo em vista a relação com o aumento das receitas nos últimos anos, além do mercado ser moderadamente previsível, sugerindo que o aumento continuará com uma tendência em crescer cada vez mais. De mesmo modo, é possível entender que no mercado haverá produtos mais procurados, mas as outras demandas também são de extrema importância para as vendas locais.
+Os resultados sugerem que o mercado local apresenta uma forte tendência de crescimento, tendo em vista que o mercado teve um aumento de 47,07% em uma década e no último ano o crescimento foi ainda maior, chegando em 15,89% de aumento em relação ao ano anterior, mesmo que em 1888 houve uma queda na receita anual em relação ao ano anterior, mas por ser algo atípico, o mercado continuará sendo moderadamente previsível, sugerindo que o aumento continuará com uma tendência em crescer cada vez mais. 
 
-A partir da análise, foi possível perceber que a clientela possui uma clara diferenciação no perfil etário, tendo um perfil mais parecido em algumas lojas da região, como: Banco Careca e a Vendinha Rápida e outras com uma idade mais dispersa. As características dos clientes são bastante parecidas, tendo apenas alguns valores que são atípicos.
+De mesmo modo, através dos resultados é possível entender melhor a relação entre a altura e peso dos clientes, percebendo que enquanto mais alto for o cliente, mais peso ele terá, ou seja, existe uma relação positiva entre essas variáveis, também é perceptível que grande parte da clientela possui um peso próximo a 75 kg e uma altura próxima a 171 cm.
+
+Da mesma forma, a partir dos Resultados, foi possível perceber que a clientela possui uma clara diferenciação no perfil etário, tendo uma clientela mais jovem nas lojas Ferraria Seca, Saloon e Banco Careca, e a loja Vendinha Rápida tendo uma clientela mais velha. Além de ser possível compreender que o Banco Careca e A Vendinha Rápida possui clientes com idades mais semelhantes, enquanto as outras duas possuem uma idade dos clientes mais dispersa.
+
+Com isso, foi possível compreender que as lojas Ouro Fino, TendTudo e Ferraria Apache tiveram a maior receita no ano de 1889 e tiveram produtos com uma maior demanda, sendo os principais: Botas de Couro, Chapéu de Couro, Colt.45, Espingarda, Machado e Whisky. A loja Ferraria Apache foi a única que teve um empate, tendo o Machado e o Whisky com um mesmo número de vendas. Cada loja teve um que foi o mais vendido, mas os outros produtos também tiveram uma grande procura e número de vendas no ano, demonstrando que as lojas não dependem apenas de um produto. 
+
+
+
+
+
+
+
 
 
 

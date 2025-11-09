@@ -51,3 +51,83 @@ ggplot(df_cliente_final) +
   ) +
   theme_estat()
 ggsave("disp_uni.pdf", width = 158, height = 93, units = "mm")
+
+
+# medidas para o quadro de resumo da altura
+
+media_do_peso_altura <- c(
+  "Altura" = mean(df_cliente_final$altura_cm),
+  "Peso" = mean(df_cliente_final$peso_kg)
+)
+
+mediana_do_peso_altura <- c(
+  median(df_cliente_final$altura_cm),
+  median(df_cliente_final$peso_kg)
+)
+
+desvio_padrao_do_peso_altura <- c(
+  sd(df_cliente_final$altura_cm),
+  sd(df_cliente_final$peso_kg)
+)
+
+minimo_peso_altura <- c(
+  min(df_cliente_final$altura_cm),
+  min(df_cliente_final$peso_kg)
+)
+
+maximo_peso_altura <- c(
+  max(df_cliente_final$altura_cm),
+  max(df_cliente_final$peso_kg)
+)
+
+amplitude_peso_altura <- c(
+  max(df_cliente_final$altura_cm) - min(df_cliente_final$altura_cm),
+  max(df_cliente_final$peso_kg) - min(df_cliente_final$peso_kg)
+)
+
+quartil_1_peso_altura <- c(
+  quantile(df_cliente_final$altura_cm, probs = 0.25),
+  quantile(df_cliente_final$peso_kg, probs = 0.25)
+)
+
+quartil_3_peso_altura <- c(
+  quantile(df_cliente_final$altura_cm, probs = 0.75),
+  quantile(df_cliente_final$peso_kg, probs = 0.75)
+)
+
+variancia_peso_altura <- c(
+  var(df_cliente_final$altura_cm),
+  var(df_cliente_final$peso_kg)
+)
+
+interquartil_peso_altura <- c(
+  IQR(df_cliente_final$altura_cm),
+  IQR(df_cliente_final$peso_kg)
+)
+
+limite_inferior_peso_altura <- c(
+  quantile(df_cliente_final$altura_cm, probs = 0.25) - 1.5 * IQR(df_cliente_final$altura_cm),
+  quantile(df_cliente_final$peso_kg, probs = 0.25) - 1.5 * IQR(df_cliente_final$peso_kg)
+)
+
+limite_superior_peso_altura <- c(
+  quantile(df_cliente_final$altura_cm, probs = 0.75) + 1.5 * IQR(df_cliente_final$altura_cm),
+  quantile(df_cliente_final$peso_kg, probs = 0.75) + 1.5 * IQR(df_cliente_final$peso_kg)
+)
+
+
+
+medidas_altura_peso <- data.frame(
+  media = media_do_peso_altura,
+  mediana = mediana_do_peso_altura,
+  desvio_padrao = desvio_padrao_do_peso_altura,
+  minimo = minimo_peso_altura,
+  maximo = maximo_peso_altura,
+  amplitude = amplitude_peso_altura,
+  quartil_1 = quartil_1_peso_altura,
+  quartil_3 = quartil_3_peso_altura,
+  variancia = variancia_peso_altura,
+  interquartil = interquartil_peso_altura,
+  limite_inferior = limite_inferior_peso_altura,
+  limite_superior = limite_superior_peso_altura
+)
