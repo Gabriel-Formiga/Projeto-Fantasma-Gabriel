@@ -229,9 +229,9 @@ ggsave("series_uni.pdf", width = 158, height = 93, units = "mm")
 ::: {#tbl-receita_media layout-align="center" tbl-pos="H"}
 ```{=latex}
 \begin{tabular}{|c|c|c|}
-\toprule
+\hline
 \textbf{Anos} & \textbf{Média das receitas} & \textbf{Porcentagem de aumento} \\
-\midrule
+\hline
 1880 & 105.399,0 & - \\
 1881 & 112.110,0 & 6,37\% \\
 1882 & 112.452,4 & 0,31\% \\
@@ -242,9 +242,9 @@ ggsave("series_uni.pdf", width = 158, height = 93, units = "mm")
 1887 & 135.444,8 & 3,40\% \\
 1888 & 133.757,6 & −1,25\% \\
 1889 & 155.009,1 & 15,89\% \\
-\midrule
+\hline
 \textbf{Total} & 1.252.977,8 & 47,07\% \\
-\bottomrule
+\hline
 \end{tabular}
 
 
@@ -326,7 +326,7 @@ Medidas de resumo do peso dos clientes
 :::
 
 
-Através do gráfico $\ref{fig-altura_peso}$ é possível visualizar uma relação positiva entre as duas variáveis, ou seja, existe uma tendência de que, à medida que a altura do indivíduo aumenta, seu peso também aumentará. O coeficiente de correlação das duas variáveis é de 0,6971007, ressaltando que a relação é positiva por ela ser maior que zero e indica uma relação moderada forte, pois ela tem um valor próximo a 0,70 e pelos pontos no gráfico estarem bem mais agrupados do que dispersos. As alturas observadas vão de 150 cm até 200 cm, já o peso vai de 40 kg até 120 kg. A maior concentração do gráfico está agrupado na faixa de altura entre 170 cm e 180 cm e de de peso entre 60 kg e 80 kg, indicando um maior número de indivíduos nessas faixas. Existe alguns outliers, ou seja, existe alguns indivíduos com menor altura e maior peso, e vice versa, mas mesmo tendo esses valores discrepantes, o resultado da análise permanece o mesmo.
+Através do gráfico $\ref{fig-altura_peso}$ é possível visualizar uma relação positiva entre as duas variáveis, ou seja, existe uma tendência de que, à medida que a altura do indivíduo aumenta, seu peso também aumentará. O coeficiente de correlação das duas variáveis é de 0,697, ressaltando que a relação é positiva por ela ser maior que zero e indica uma relação moderada forte, pois ela tem um valor próximo a 0,70 e pelos pontos no gráfico estarem bem mais agrupados do que dispersos. As alturas observadas vão de 150 cm até 200 cm, já o peso vai de 40 kg até 120 kg. A maior concentração do gráfico está agrupado na faixa de altura entre 170 cm e 180 cm e de de peso entre 60 kg e 80 kg, indicando um maior número de indivíduos nessas faixas. Existe alguns outliers, ou seja, existe alguns indivíduos com menor altura e maior peso, e vice versa, mas mesmo tendo esses valores discrepantes, o resultado da análise permanece o mesmo.
 
 Analisando o [**Quadro** @quad-altura] que representa a altura dos clientes, é possivel perceber que a maioria dos clientes possui uma altura proxima a 171 cm, tendo uma media de 171.48 cm e uma mediana de 171.75, além disso a distribuição da altura é quase simétrica por ela ter uma media e uma mediana quase iguais. Ademais 25% dos cliente possuem uma altura menor ou igual a 164.80 cm e 75% deles possuem uma altura menor ou igual a 178.00 cm, com isso é possivel entender que grande parte dos clientes dessa região possuem uma altura parecida. Já analisando o [**Quadro** @quad-peso] que representa o peso dos clientes, é possivel perceber que a maioria dos clientes possuem um peso proximo a 75 kg, pois a media é 75.18 kg e a mediana é 75.29 kg, isso mostra que a distribuição do peso também é quase simetrica. Além disso 25% dos clientes possuem um peso menor ou igual a 66.89 kg e 75% possuem um peso menor ou igual a 83.19, isso ressalta que a maioria dos clientes possuem um peso entre 60 kg e 80 kg.
 
